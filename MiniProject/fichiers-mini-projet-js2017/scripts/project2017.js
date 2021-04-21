@@ -120,8 +120,8 @@ var createOrderControlBlock = function(index) {
     // add control to control as its child
     control.appendChild(button);
     input.addEventListener('change', () => {
-        // console.log(input.value);
-        if (input.value > 0) {
+        console.log(input.value);
+        if (input.value > 0 && input.value <= 9) {
             button.disabled = false;
         } else {
             button.disabled = true;
