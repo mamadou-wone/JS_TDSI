@@ -14,9 +14,14 @@ var total = 0;
 
 // function called when page is loaded, it performs initializations 
 var init = function() {
+    const filter = document.querySelector('#filter');
+    filter.addEventListener('input', (event) => {
+        recherche(event.target.value);
+    })
     createShop();
     getItemInCard();
     deleteItem();
+    getTotalPrice()
 
     // TODO : add other initializations to achieve if you think it is required
 }
@@ -121,7 +126,8 @@ var createOrderControlBlock = function(index) {
         } else {
             button.disabled = true;
         }
-    })
+    });
+    // let container = document.getElementById("achats")
     button.addEventListener('click', () => {
         addToCard(document.getElementById(index + '-product'), index,
             input.value, catalog[index].price
@@ -135,28 +141,26 @@ var createOrderControlBlock = function(index) {
 
 var addToCard = (product, index, price, quantity) => {
     let allChild = product.children;
-    let container = document.getElementById("achats")
     let block = document.createElement("div");
     block.id = index + "-achat";
     block.className = "achat";
-
 
     block.appendChild(createBlock('figure', allChild[1].innerHTML));
     block.appendChild(createBlock('h4', allChild[0].innerHTML));
     block.appendChild(createBlock('div', price, 'quantite'));
     block.appendChild(createBlock('div', quantity, 'prix'))
+
     let remove = createBlock('div', '', 'controle')
     let btn = createBlock('button', '', 'retirer');
     btn.id = index + '-remove';
     remove.appendChild(btn);
-    remove.addEventListener('click', () => {
-        console.log('click');
-    });
     block.appendChild(remove);
+
     let myDiv = createBlock('div', '');
     myDiv.appendChild(block)
     console.log(myDiv);
     localStorage.setItem(allChild[0].innerHTML, myDiv.innerHTML)
+        // getItemInCard()
 
 }
 
@@ -168,7 +172,7 @@ var getItemInCard = () => {
             if (localStorage[element.name]) {
                 let content = localStorage.getItem(element.name);
                 // console.log(content);
-                achats.innerHTML += `${content}`;
+                card.innerHTML += `${content}`;
             }
         });
     }
@@ -195,14 +199,40 @@ var createFigureBlock = function(product) {
 
 var deleteItem = () => {
     let card = document.querySelectorAll(".achat");
-    console.log(card);
+    let panier = document.getElementById('achats');
     for (let i = 0; i < card.length; i++) {
         const element = card[i];
-        // console.log(element.children);
         element.children[4].addEventListener('click', () => {
             localStorage.removeItem(element.children[1].innerHTML);
-            location.reload();
+            panier.removeChild(element);
+            getTotalPrice();
+            if (localStorage.length == 0) {
+                document.getElementById('montant').textContent = 0;
+            }
         })
 
+    }
+}
+
+var getTotalPrice = () => {
+    let card = document.querySelectorAll(".achat");
+    let total = 0;
+    for (let i = 0; i < card.length; i++) {
+        const element = card[i];
+        total += element.children[2].innerHTML * element.children[3].innerHTML;
+        document.getElementById('montant').textContent = total;
+    }
+}
+
+var searchProduct = (text) => {
+    let procuct = document.getElementById('boutique');
+    procuct.innerHTML = '';
+    let shop = document.getElementById("boutique");
+    for (let i = 0; i < catalog.length; i++) {
+        let productCatalog = catalog[i];
+        let name = productCatalog.name;
+        if (name.indexOf(text) >= 0) {
+            shop.appendChild(createProduct(catalog[i], i));
+        }
     }
 }
