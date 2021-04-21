@@ -19,6 +19,7 @@ var checkEntry = (passwd) => {
 
 
 password.addEventListener("keyup", () => {
+
     if (password.value.length > 0 && password.value.length <= 4) {
         warning.innerHTML = "Votre mot de passe est trop court"
         warning.style.display = "contents";
@@ -29,7 +30,7 @@ password.addEventListener("keyup", () => {
         greenWarning.style.display = "none";
     } else {
         warning.style.display = "none";
-        if (checkEntry(password.value) >= 2 && checkEntry(password.value) <= 4) {
+        if (checkEntry(password.value) >= 2) {
             greenWarning.innerHTML = "Mot de passe fort";
             greenWarning.style.display = "contents";
         } else {
@@ -67,4 +68,4 @@ btn.addEventListener("click", () => {
     document.querySelector("#much").style.display = "none";
     greenWarning.style.display = "none";
     btn.disabled = true;
-})
+});

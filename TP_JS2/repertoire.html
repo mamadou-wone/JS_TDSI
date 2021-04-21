@@ -16,20 +16,23 @@
             <div class="col">
                 <form method="post">
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="paswd" placeholder="password">
+                        <label for="exampleFormControlInput1" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="name" placeholder="Nom">
                         <p color="red" id="warning" style="display: none;"></p>
                         <p color="green" id="greenPass" style="display: none;"></p>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm" placeholder="confirm password">
+                        <label for="exampleFormControlInput1" class="form-label">Number</label>
+                        <input type="text" class="form-control" id="number" placeholder="téléphone">
                         <p color="red" id="confirmWarning" style="display: none;"></p>
                         <p color="green" id="much" style="display: none;"></p>
                     </div>
 
                 </form>
-                <button class="btn btn-outline-primary" type="submit" id="button">Valider</button>
+                <button class="btn btn-outline-primary" type="submit" id="button">Add</button>
+                <button class="btn btn-outline-success" type="submit" id="update">Update</button>
+                <button class="btn btn-outline-danger" type="submit" id="delete">Delete</button>
+                <button class="btn btn-outline-primary" type="submit" id="get">Retrieve</button>
             </div>
             <div class="col"></div>
         </div>
